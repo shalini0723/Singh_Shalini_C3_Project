@@ -4,6 +4,8 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 
 import java.time.*;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -63,4 +65,28 @@ class RestaurantTest {
                 ()->restaurant.removeFromMenu("French fries"));
     }
     //<<<<<<<<<<<<<<<<<<<<<<<MENU>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+    //>>>>>>>>>>>>>>>>>>>>>>>>>>>ITEM TOTAL<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+    @Test
+    public void select_item_from_menu_should_give_total_price_of_selected_item_if_items_are_present() {
+        List<String> selectedItems = new ArrayList<>();
+        selectedItems.add("Sweet corn soup");
+        selectedItems.add("Vegetable lasagne");
+        assertEquals(restaurant.getPriceForSelectedItems(selectedItems),388);
+    }
+
+    @Test
+    public void select_item_from_menu_should_give_0_price_of_selected_item_if_items_are_Not_present() {
+        List<String> selectedItems = new ArrayList<>();
+        selectedItems.add("Missing Item1");
+        assertEquals(restaurant.getPriceForSelectedItems(selectedItems),0);
+    }
+
+    @Test
+    public void select_item_from_menu_should_give_0_price_of_selected_item_if_no_items_are_selected() {
+        List<String> selectedItems = new ArrayList<>();
+        assertEquals(restaurant.getPriceForSelectedItems(selectedItems),0);
+    }
+    //<<<<<<<<<<<<<<<<<<<<<<<ITEM TOTAL>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 }
